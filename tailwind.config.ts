@@ -1,51 +1,58 @@
-import { allThemes, defaultTheme, safeThemeList } from "./themes";
-import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin";
-
-const themer = require("tailwindcss-themer");
+import type { Config } from "tailwindcss"
 
 const config: Config = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  safelist: safeThemeList,
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
-      /* breakpoints */
-      screens: {
-        ssm: "400px",
-      },
-
-      /* fonts */
-      fontFamily: {
-        "main": "'DM Sans'", // "main": "'Open Sans'",
-      },
-
-      /* animations */
-      keyframes: {
-        "loading-pin": {
-          "0%, 40%, 100%": { height: "0.5em", "background-color": "#282336" },
-          "20%": { height: "1em", "background-color": "white" },
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
-      animation: { "loading-pin": "loading-pin 1.8s ease-in-out infinite" },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
     },
   },
-  plugins: [
-    require("tailwind-scrollbar"),
-    themer({
-      defaultTheme: defaultTheme,
-      themes: [
-        {
-          name: "default",
-          selectors: [".theme-default"],
-          ...defaultTheme,
-        },
-        ...allThemes,
-      ],
-    }),
-    plugin(({ addVariant }) => {
-      addVariant("dir-neutral", "[dir] &");
-    }),
-  ],
-};
+  plugins: [],
+}
 
-export default config;
+export default config
+
